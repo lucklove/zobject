@@ -1,4 +1,9 @@
 all:
-	gcc -Wall -O -std=c11 *.c -o test
+	make zobj_test
+	make exception_test
+zobj_test: *.c *.h
+	gcc -Wall -std=c11 zobj_test.c zobject.c rb_tree.c mem.c -o zobj_test
+exception_test: *.c *.h
+	gcc -Wall -std=c11 -lpthread exception_test.c exception.c rb_tree.c mem.c spin.c zobject.c -o exception_test
 clean:
-	rm -f test
+	rm -f zobj_test exception_text
