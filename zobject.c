@@ -384,6 +384,7 @@ zObjDecRef(struct ZObjInstance *instance)
 void
 zDesInstance(struct ZObjInstance *instance)
 {
+	__exception_delete_instance(instance);	
 	refPut(&instance->ref_node);
 }
 	
