@@ -1,9 +1,21 @@
-all:
-	make zobj_test
-	make exception_test
-zobj_test: *.c *.h
-	gcc -Wall -std=c11 zobj_test.c zobject.c rb_tree.c mem.c exception.c spin.c ref.c -o zobj_test
-exception_test: *.c *.h
-	gcc -Wall -std=c11 -lpthread exception_test.c exception.c ref.c rb_tree.c mem.c spin.c zobject.c -o exception_test
+CC = gcc
+RM = rm
+CFLAGS = -Wall -std=c11 -I../inc -ltcmalloc
+
+ZOBJ_TEST_OBJS = zobject.o zobj_test.o mem.o rb_tree.o ref.o exception.o spin.o
+
+EXCEPTION_TEST_OBJS = exception.o exception_test.o rb_tree.o zobject.o mem.o spin.o ref.o
+
+.c.o:
+	$(CC) -c $(CFLAGS) $*.c
+
+all: zobj_test exception_test
+
+exception_test: $(EXCEPTION_TEST_OBJS)
+	$(CC) $(CFLAGS) -o $@ $(EXCEPTION_TEST_OBJS) -lpthread
+
+zobj_test: $(ZOBJ_TEST_OBJS)
+	$(CC) $(CFLAGS) -o $@ $(ZOBJ_TEST_OBJS)
+
 clean:
-	rm -f zobj_test exception_test
+	$(RM) -f *.o zobj_test exception_test

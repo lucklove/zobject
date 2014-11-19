@@ -26,7 +26,7 @@ struct slow_eat_interface {
 };
 
 struct anamal_instance {
-	const char *name;
+	char *name;
 };
 
 struct fish_instance {
@@ -88,7 +88,10 @@ static void *
 anamal_cons(void *ins, void *data)
 {
 	struct anamal_instance *instance = ins;
-	instance->name = data;
+	instance->name = malloc(strlen(data));
+	assert(instance->name != NULL);
+	strcpy(instance->name, data);
+	printf("construct anamal %s\n", (char *)data);
 	return NULL;
 }
 	
@@ -105,7 +108,8 @@ fish_cons(void *ins, void *data)
 static void
 anamal_des(void *body)
 {
-	printf("anamal des\n");
+	printf("destruct anamal %s\n", ((struct anamal_instance *)body)->name);
+	free(((struct anamal_instance *)body)->name);
 }
 
 static void
@@ -174,6 +178,14 @@ main(int argc, char *argv[])
 	Z_OBJ_TO_CLASS(ins, NULL, struct fish_class)->swim(ins);
 	Z_OBJ_TO_INTERFACE(ins, "eat", struct eat_interface)->eat();
 	Z_OBJ_TO_INTERFACE(ins, "slow_eat", struct slow_eat_interface)->slow_eat();
-	zObjDecRef(ins);	
+	zObjDecRef(ins);
+	try {
+		zNewInstance("anamal", "haha");
+		zNewInstance("anamal", "xixi");
+		zNewInstance("anamal", "kaka");
+	} catch(ins, "base") {
+		assert(ins == NULL);
+	} finally {
+	}
 	return 0;
 }

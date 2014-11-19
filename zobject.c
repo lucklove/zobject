@@ -339,7 +339,7 @@ static void
 destroy_instance(struct ZObjInstance *ins)
 {
 	if(ins->parent != NULL)
-		zDesInstance(ins->parent); 
+		destroy_instance(ins->parent); 
 	if(ins->class->destructor) {
 		ins->class->destructor(ins->instance_body);
 		free(ins->instance_body);
