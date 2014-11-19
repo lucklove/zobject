@@ -1,4 +1,11 @@
+/**************************************************************************
+ * rb_tree.h                                                              * 
+ * Copyright (C) 2014 Joshua <gnu.crazier@gmail.com>                      *
+ **************************************************************************/
+
 #pragma once
+
+#include <stdbool.h>
 
 struct RBNode {
         unsigned long  rb_parent_color;
@@ -16,7 +23,7 @@ typedef struct {
         struct RBNode *rb_node;
 } RBTree, *RBTreePtr;
 
-int		rbInsert(RBTreePtr, void *);
+bool		rbInsert(RBTreePtr, void *);
 void		rbDelete(RBTreePtr, void *);
 struct RBNode*	rbSearch(RBTree, void *);
 

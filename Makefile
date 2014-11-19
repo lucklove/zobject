@@ -6,4 +6,4 @@ zobj_test: *.c *.h
 exception_test: *.c *.h
 	gcc -Wall -std=c11 -lpthread exception_test.c exception.c rb_tree.c mem.c spin.c zobject.c -o exception_test
 clean:
-	rm -f zobj_test exception_text
+	rm -f zobj_test exception_test
