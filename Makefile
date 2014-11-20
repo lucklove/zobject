@@ -1,6 +1,6 @@
 CC = gcc
 RM = rm
-CFLAGS = -Wall -std=c11 -I../inc -ltcmalloc
+CFLAGS = -Wall -std=c11 -I../inc
 
 ZOBJ_TEST_OBJS = zobject.o zobj_test.o mem.o rb_tree.o ref.o exception.o spin.o
 
