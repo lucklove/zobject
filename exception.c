@@ -176,7 +176,9 @@ __exception_delete_instance(struct ZObjInstance *instance)
 	if(stack == NULL)
 		return;
 	struct stack_node *node = to_stack(stack)->stack_top;
+	void (*old_free_func)(struct RBNode *) = rbSetReleaseFunc(&node->instance_tree, NULL);
 	rbDelete(&node->instance_tree, instance);
+	rbSetReleaseFunc(&node->instance_tree, old_free_func);
 }
 
 struct ZObjInstance *
