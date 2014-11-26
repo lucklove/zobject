@@ -74,7 +74,6 @@ typedef struct {
         struct RBNode *rb_node;
 } RBTree, *RBTreePtr;
 
-<<<<<<< HEAD
 /** type of freeNode in RBTree struct. */
 typedef void (*RBReleaseFunc)(struct RBNode *);
 
@@ -101,17 +100,9 @@ void		rbDelete(RBTreePtr tree, void *key);
  * 	has that key, else, NULL will be returned.
  */ 	
 struct RBNode*	rbSearch(RBTree tree, void *key);
-=======
-typedef void (*RBReleaseFunc)(struct RBNode *);
-
-bool		rbInsert(RBTreePtr, void *);
-void		rbDelete(RBTreePtr, void *);
-struct RBNode*	rbSearch(RBTree, void *);
->>>>>>> 50c43c19a9b9989c17c48bc367412482ad79c518
 
 /** get the root of a red black tree. */
 struct 	RBNode* rbGetRoot(RBTree);
-<<<<<<< HEAD
 
 /**
  * \brief Set the release function in the tree.
@@ -130,16 +121,10 @@ RBReleaseFunc rbSetReleaseFunc(RBTreePtr tree, void (*releaseFunc)(struct RBNode
 RBTree 	makeRBTree(void *(*getKey)(struct RBNode *), int (*cmpKey)(void *, void *),	\
 	struct RBNode *(*makeNode)(void *key),	void (*freeNode)(struct RBNode *));
 
-/** 
- * Release given RBTree's resource, the freeNode function(if have) 
- * will be called for each node in the tree.
- */ 
-=======
-RBReleaseFunc rbSetReleaseFunc(RBTreePtr tree, void (*releaseFunc)(struct RBNode *));
-RBTree 	makeRBTree(void *(*)(struct RBNode *), int (*)(void *, void *),		\
-	struct RBNode *(*)(void *key),						\
-	void    (*)(struct RBNode *));
->>>>>>> 50c43c19a9b9989c17c48bc367412482ad79c518
+/**
+ * Rlease RBTree's resource, the release function 
+ * of user will be called(if have).
+ */
 void 	destroyRBTree(RBTree);
 
 #ifdef __cplusplus
